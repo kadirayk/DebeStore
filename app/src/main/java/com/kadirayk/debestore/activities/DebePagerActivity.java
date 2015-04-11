@@ -12,12 +12,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.kadirayk.debestore.R;
-import com.kadirayk.debestore.fragments.ScreenSlidePageFragment;
+import com.kadirayk.debestore.fragments.DebePageFragment;
 
 /**
  * Created by Kadiray on 11.04.2015.
  */
-public class ScreenSlidePagerActivity extends ActionBarActivity {
+public class DebePagerActivity extends ActionBarActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
@@ -93,7 +93,7 @@ public class ScreenSlidePagerActivity extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new ScreenSlidePageFragment();
+            return new DebePageFragment();
         }
 
         @Override

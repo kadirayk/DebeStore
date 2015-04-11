@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView style="?android:textAppearanceMedium"
+        android:id="@+id/fragment_debe_page_date_textview"
+        android:padding="16dp"
+        android:lineSpacingMultiplier="1.2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/date" />
+
+    <ListView
+        android:id="@+id/fragment_debe_page_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#e0e0e0"
+        android:dividerHeight="0.5dp"/>
+
+</LinearLayout>
