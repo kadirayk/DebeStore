@@ -93,7 +93,7 @@ public class DebePagerActivity extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new DebePageFragment();
+            return new DebePageFragment().newInstance(getApplication(), position);
         }
 
         @Override
