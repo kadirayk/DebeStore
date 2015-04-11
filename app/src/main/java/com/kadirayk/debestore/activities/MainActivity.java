@@ -1,9 +1,12 @@
-package com.kadirayk.debestore;
+package com.kadirayk.debestore.activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.kadirayk.debestore.R;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -32,6 +35,8 @@ public class MainActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if(id == R.id.test_item){
+            Toast.makeText(this, "hello test", Toast.LENGTH_SHORT).show();
         }
 
         return super.onOptionsItemSelected(item);
