@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.kadirayk.debestore.R;
+import com.kadirayk.debestore.models.DebeListItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,10 +20,10 @@ public class DebeListAdapter extends BaseAdapter{
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private List<String> mDebeList;
+    private ArrayList<DebeListItem> mDebeList;
     private View mView;
 
-    public DebeListAdapter(Context context, List<String> DebeList){
+    public DebeListAdapter(Context context, ArrayList<DebeListItem> DebeList){
         mContext = context;
         mDebeList = DebeList;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,13 +59,10 @@ public class DebeListAdapter extends BaseAdapter{
         mHolder.ymleListItemTitleTV = (TextView) mView.findViewById(R.id.debeListItemTitleTV);
         mHolder.ymleListAuthorTV = (TextView) mView.findViewById(R.id.debeListItemAuthorTV);
 
-        String title = mDebeList.get(position - 1);
-        String author = mDebeList.get(position - 1);
+        DebeListItem item = mDebeList.get(position-1);
 
-//        YMLE item = mYMLEList.get(position-1);
-//
-//        String title = item.getTitle();
-//        String author = item.getAuthor();
+        String title = item.getTitle();
+        String author = item.getAuthor();
 
         mHolder.ymleListItemTitleTV.setText(title);
         mHolder.ymleListAuthorTV.setText(author);

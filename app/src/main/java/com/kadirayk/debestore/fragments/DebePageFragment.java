@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.adapters.DebeListAdapter;
+import com.kadirayk.debestore.models.DebeListItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,13 @@ public class DebePageFragment extends Fragment implements OnItemClickListener {
     private DebeListAdapter mAdapter;
 
 
-    public static Fragment newInstance(Context context, int date){
+    public static Fragment newInstance(ArrayList<DebeListItem> mDebeList, int date){
         DebePageFragment mDebePageFragment = new DebePageFragment();
         Bundle args = new Bundle();
         args.putInt("date", date);
+        args.putParcelableArrayList("DebeListItems", mDebeList);
         mDebePageFragment.setArguments(args);
+
         return mDebePageFragment;
     }
 
@@ -51,19 +54,19 @@ public class DebePageFragment extends Fragment implements OnItemClickListener {
         mDebeList.add("3. entry");
 
         List<String> mDebeList2 = new ArrayList<String>();
-        mDebeList2.add("1. dünya savaşı");
-        mDebeList2.add("2. dünya savaşı");
-        mDebeList2.add("3. dünya savaşı");
+//        mDebeList2.add("1. dünya savaşı");
+//        mDebeList2.add("2. dünya savaşı");
+//        mDebeList2.add("3. dünya savaşı");
 
        // updateAdapter(mDebeList);
 
         mDate = this.getArguments().getInt("date");
 
-        if(mDate == 1){
-            updateAdapter(mDebeList);
-        }else{
-            updateAdapter(mDebeList2);
-        }
+        ArrayList<DebeListItem> mDebeListItemList;
+
+        mDebeListItemList = this.getArguments().getParcelableArrayList("DebeListItems");
+
+        updateAdapter(mDebeListItemList);
 
         fragment_debe_page_date_textview.setText("date : " + mDate);
 
@@ -76,7 +79,7 @@ public class DebePageFragment extends Fragment implements OnItemClickListener {
         fragment_debe_page_listview.setOnItemClickListener(this);
     }
 
-    private void updateAdapter(List<String> debeList){
+    private void updateAdapter(ArrayList<DebeListItem> debeList){
         mAdapter = new DebeListAdapter(getActivity(), debeList);
         fragment_debe_page_listview.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();

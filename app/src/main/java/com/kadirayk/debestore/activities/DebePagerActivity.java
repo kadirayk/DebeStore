@@ -13,25 +13,17 @@ import android.widget.Toast;
 
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.fragments.DebePageFragment;
+import com.kadirayk.debestore.models.DebeListItem;
+
+import java.util.ArrayList;
 
 /**
  * Created by Kadiray on 11.04.2015.
  */
 public class DebePagerActivity extends ActionBarActivity {
-    /**
-     * The number of pages (wizard steps) to show in this demo.
-     */
-    private static final int NUM_PAGES = 5;
 
-    /**
-     * The pager widget, which handles animation and allows swiping horizontally to access previous
-     * and next wizard steps.
-     */
+    private static final int NUM_PAGES = 10;
     private ViewPager mPager;
-
-    /**
-     * The pager adapter, which provides the pages to the view pager widget.
-     */
     private PagerAdapter mPagerAdapter;
 
     @Override
@@ -39,7 +31,6 @@ public class DebePagerActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
 
-        // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
@@ -48,19 +39,15 @@ public class DebePagerActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }else if(id == R.id.test_item){
@@ -70,22 +57,7 @@ public class DebePagerActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
-    }
 
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
@@ -93,7 +65,10 @@ public class DebePagerActivity extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new DebePageFragment().newInstance(getApplication(), position);
+            ArrayList<DebeListItem> mDebeListItemArrayList = new ArrayList<DebeListItem>();
+            DebeListItem mDebeListItem = new DebeListItem(position + "title", position + "author");
+            mDebeListItemArrayList.add(mDebeListItem);
+            return new DebePageFragment().newInstance(mDebeListItemArrayList, position);
         }
 
         @Override
