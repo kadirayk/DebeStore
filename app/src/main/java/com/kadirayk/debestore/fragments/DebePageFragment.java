@@ -1,7 +1,6 @@
 package com.kadirayk.debestore.fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
@@ -15,12 +14,12 @@ import android.widget.Toast;
 
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.adapters.DebeListAdapter;
+import com.kadirayk.debestore.application.AppController;
 import com.kadirayk.debestore.models.DebeListItem;
 import com.kadirayk.debestore.network.DebeListParser;
 import com.kadirayk.debestore.network.NetworkController.OnDebeListResponseRecievedListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Kadiray on 11.04.2015.
@@ -52,8 +51,14 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
 
         setUI();
 
-        DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
-        mDebeListParser.callDebeListTask();
+        if(AppController.getIfTodaysDebeListStored(getActivity(), "today")){
+
+        }else{
+            AppController.storeIfTodaysDebeListStored(getActivity(), "today");
+            DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
+            mDebeListParser.callDebeListTask();
+        }
+
 
         mDate = this.getArguments().getInt("date");
 

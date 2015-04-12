@@ -33,4 +33,18 @@ public class AppController extends Application{
         mEditor.commit();
     }
 
+    public static boolean getIfTodaysDebeListStored(Context context, String today){
+        SharedPreferences mPrefs = context.getSharedPreferences("AppInfo", MODE_PRIVATE);
+        boolean isStored = mPrefs.getString("IfTodaysDebeListStored", "").equals(today);
+        return isStored;
+    }
+
+    public static void storeIfTodaysDebeListStored(Context context, String today){
+        SharedPreferences mPrefs = context.getSharedPreferences("AppInfo", MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = mPrefs.edit();
+        mEditor.putString("IfTodaysDebeListStored", today);
+        mEditor.commit();
+    }
+
+
 }
