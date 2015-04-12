@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.adapters.DebeListAdapter;
 import com.kadirayk.debestore.models.DebeListItem;
+import com.kadirayk.debestore.network.NetworkController.OnDebeListResponseRecievedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * Created by Kadiray on 11.04.2015.
  */
-public class DebePageFragment extends Fragment implements OnItemClickListener {
+public class DebePageFragment extends Fragment implements OnItemClickListener, OnDebeListResponseRecievedListener {
 
     private View mView;
     private ListView fragment_debe_page_listview;
@@ -87,6 +88,11 @@ public class DebePageFragment extends Fragment implements OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void OnYMLEResponseRecieved(ArrayList<DebeListItem> debeListItems) {
 
     }
 }
