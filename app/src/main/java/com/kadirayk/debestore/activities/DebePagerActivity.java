@@ -34,6 +34,7 @@ public class DebePagerActivity extends ActionBarActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        mPager.setCurrentItem(NUM_PAGES);
     }
 
 

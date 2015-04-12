@@ -68,8 +68,8 @@ public class DebeListParser {
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(mContext);
-            mProgressDialog.setTitle("baþlýk var, baþlýk var");
-            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setTitle("Debe Listesi");
+            mProgressDialog.setMessage("yükleniyor...");
             mProgressDialog.setIndeterminate(false);
             mProgressDialog.show();
         }
@@ -113,7 +113,7 @@ public class DebeListParser {
         @Override
         protected void onPostExecute(ArrayList<DebeListItem> result) {
             if (result == null) {
-                Toast.makeText(mContext, "baþaramadýk :(", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "başaramadık :(", Toast.LENGTH_SHORT).show();
             } else {
                 ((DebePageFragment) currentFragment).OnYMLEResponseRecieved(result);
             }
