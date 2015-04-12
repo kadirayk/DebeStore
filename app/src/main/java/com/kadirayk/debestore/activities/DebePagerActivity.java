@@ -67,7 +67,8 @@ public class DebePagerActivity extends ActionBarActivity {
         @Override
         public Fragment getItem(int position) {
             ArrayList<DebeListItem> mDebeListItemArrayList = new ArrayList<DebeListItem>();
-            DebeListItem mDebeListItem = new DebeListItem(position + "title", position + "author");
+            DebeListItem mDebeListItem = new DebeListItem(1, position + "title", position + "author", "url", "date");
+            //TODO get archived debelist from database
             mDebeListItemArrayList.add(mDebeListItem);
             return new DebePageFragment().newInstance(mDebeListItemArrayList, position);
         }

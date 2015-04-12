@@ -11,7 +11,6 @@ import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.models.DebeListItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Kadiray on 11.04.2015.
@@ -56,21 +55,23 @@ public class DebeListAdapter extends BaseAdapter{
             mView = mInflater.inflate(R.layout.debe_list_item, null);
         }
 
-        mHolder.ymleListItemTitleTV = (TextView) mView.findViewById(R.id.debeListItemTitleTV);
-        mHolder.ymleListAuthorTV = (TextView) mView.findViewById(R.id.debeListItemAuthorTV);
+        mHolder.debeListItemTitleTV = (TextView) mView.findViewById(R.id.debeListItemTitleTV);
+        mHolder.debelistItemAuthorTV = (TextView) mView.findViewById(R.id.debeListItemAuthorTV);
+        mHolder.debeListItemPlaceTV = (TextView) mView.findViewById(R.id.debeListItemPlaceTV);
 
         DebeListItem item = mDebeList.get(position-1);
 
-        String title = item.getTitle();
-        String author = item.getAuthor();
+        mHolder.debeListItemTitleTV.setText(item.getTitle());
+        mHolder.debelistItemAuthorTV.setText(item.getAuthor());
 
-        mHolder.ymleListItemTitleTV.setText(title);
-        mHolder.ymleListAuthorTV.setText(author);
+        int mplace = item.getPlace();
+
+        mHolder.debeListItemPlaceTV.setText(String.valueOf(mplace));
 
         return mView;
     }
 
     private class ViewHolder {
-        TextView ymleListItemTitleTV, ymleListAuthorTV;
+        TextView debeListItemTitleTV, debelistItemAuthorTV, debeListItemPlaceTV;
     }
 }

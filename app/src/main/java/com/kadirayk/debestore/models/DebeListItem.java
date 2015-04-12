@@ -54,13 +54,13 @@ public class DebeListItem implements Parcelable{
 
     };
 
-    public DebeListItem(String title, String author) {
+    public DebeListItem(int place, String title, String author, String url, String date) {
 //        this.id = id;
-//        this.place = place;
+        this.place = place;
         this.title = title;
         this.author = author;
-//        this.url = url;
-//        this.date = date;
+        this.url = url;
+        this.date = date;
     }
 
     public long getId() {

@@ -29,7 +29,7 @@ public class DebeListParser {
     private Fragment currentFragment;
     private DebeListTask mDebeListTask;
 
-    String DEBE_LIST_URL = "http://www.eksisozluk.com/debe";
+    String DEBE_LIST_URL = "https://eksisozluk.com/debe";
     ProgressDialog mProgressDialog;
 
 
@@ -71,6 +71,7 @@ public class DebeListParser {
             mProgressDialog.setTitle("Debe Listesi");
             mProgressDialog.setMessage("yükleniyor...");
             mProgressDialog.setIndeterminate(false);
+            mProgressDialog.setCancelable(false);
             mProgressDialog.show();
         }
 
@@ -80,22 +81,30 @@ public class DebeListParser {
 
                 Document document = Jsoup.connect(DEBE_LIST_URL).get();
 
-                Elements YMLETitle = document.select("span[class=\"caption\"]");
-                Elements YMLEAuthor = document.select("div[class=\"detail\"]");
-                Elements YMLELink = document.select("ol li a");
+                Elements debeTitle = document.select("span[class=\"caption\"]");
+                Elements debeAuthor = document.select("div[class=\"detail\"]");
+                Elements debeLink = document.select("ol li a");
 
 //                int lastGroup = AppController.getLastGroup(mContext);
 
                 int i = 0;
+                int j = 0;
 //                String today = AppController.getSystemDate();
-                for (Element element : YMLELink) {
-                    DebeListItem mDebeListItem = new DebeListItem(YMLETitle.get(i).text(), YMLEAuthor.get(i).text());
+                for (Element element : debeLink) {
+
+                    if(debeAuthor.get(0).toString().contains("reklam")){
+                        j = i + 1;
+                    }else{
+                        j = i;
+                    }
+
+                    DebeListItem mDebeListItem = new DebeListItem(i+1, debeTitle.get(i).text(), debeAuthor.get(j).text(), "url", "date");
 
                     mDebeListItem.setPlace(i+1);
-                    mDebeListItem.setTitle(YMLETitle.get(i).text());
-                    mDebeListItem.setAuthor(YMLEAuthor.get(i).text());
+                    mDebeListItem.setTitle(debeTitle.get(i).text());
+                    mDebeListItem.setAuthor(debeAuthor.get(j).text());
                     mDebeListItem.setUrl(element.attr("href"));
-                    //TODO
+                    //TODO get today's date
                     mDebeListItem.setDate("today");
 
 

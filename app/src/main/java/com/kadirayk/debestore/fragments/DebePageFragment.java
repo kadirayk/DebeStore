@@ -51,10 +51,6 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
         mView = inflater.inflate(R.layout.fragment_debe_page, container, false);
 
         setUI();
-        List<String> mDebeList = new ArrayList<String>();
-        mDebeList.add("1. entry");
-        mDebeList.add("2. entry");
-        mDebeList.add("3. entry");
 
         DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
         mDebeListParser.callDebeListTask();
@@ -92,14 +88,18 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
     @Override
     public void OnYMLEResponseRecieved(ArrayList<DebeListItem> debeListItemList) {
 
-        Toast.makeText(getActivity(), debeListItemList.get(0).getTitle(), Toast.LENGTH_SHORT).show();
+        if(debeListItemList.size()!=0){
+            Toast.makeText(getActivity(), debeListItemList.get(0).getTitle(), Toast.LENGTH_SHORT).show();
+            updateAdapter(debeListItemList);
+        }
+
 
 //        for(DebeListItem debeItem : debeListItems){
 //            dataSource.createYMLE(ymle.getGroup(), ymle.getPlace(), ymle.getTitle(), ymle.getAuthor(), ymle.getUrl(), ymle.getDate());
 //        }
 
 //        debeListItemList  = dataSource.getAllYMLES();
-        updateAdapter(debeListItemList);
+
 
     }
 }
