@@ -11,6 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="#444"
+        android:drawableRight="@drawable/ic_action_next_item"
+        android:drawableLeft="@drawable/ic_action_previous_item"
+        android:textColor="#fff"
         android:text="@string/date" />
 
     <ListView
