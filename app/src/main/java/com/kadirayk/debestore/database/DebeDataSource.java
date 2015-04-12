@@ -36,7 +36,7 @@ public class DebeDataSource {
         dbHelper.close();
     }
 
-    public DebeListItem createYMLE(int place, String title, String author, String url, String date) {
+    public DebeListItem createDebe(int place, String title, String author, String url, String date) {
         title = title.trim();
         author = author.trim();
         url = url.trim();
@@ -55,19 +55,19 @@ public class DebeDataSource {
                 allColumns, DatabaseHelper.DEBE_COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
-        DebeListItem newYMLE = cursorToDebeListItem(cursor);
+        DebeListItem newDebe = cursorToDebeListItem(cursor);
         cursor.close();
-        return newYMLE;
+        return newDebe;
     }
 
-    public void deleteYMLE(DebeListItem debeListItem) {
+    public void deleteDebe(DebeListItem debeListItem) {
         long id = debeListItem.getId();
-        System.out.println("ymle deleted with id: " + id);
+        System.out.println("debe deleted with id: " + id);
         database.delete(DatabaseHelper.TABLE_DEBE, DatabaseHelper.DEBE_COLUMN_ID
                 + " = " + id, null);
     }
 
-    public ArrayList<DebeListItem> getAllYMLES() {
+    public ArrayList<DebeListItem> getAllDebeListItems() {
         ArrayList<DebeListItem> debeList = new ArrayList<DebeListItem>();
 
         Cursor cursor = database.query(DatabaseHelper.TABLE_DEBE,
@@ -84,7 +84,7 @@ public class DebeDataSource {
         return debeList;
     }
 
-    public ArrayList<DebeListItem> getAllYMLESByDate(String date) {
+    public ArrayList<DebeListItem> getAllDebeListItemsByDate(String date) {
         ArrayList<DebeListItem> debeList = new ArrayList<DebeListItem>();
 
         Cursor cursor = database.rawQuery("SELECT * FROM "

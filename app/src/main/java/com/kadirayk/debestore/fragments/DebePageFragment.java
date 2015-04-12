@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.adapters.DebeListAdapter;
 import com.kadirayk.debestore.application.AppController;
+import com.kadirayk.debestore.database.DebeDataSource;
 import com.kadirayk.debestore.models.DebeListItem;
 import com.kadirayk.debestore.network.DebeListParser;
 import com.kadirayk.debestore.network.NetworkController.OnDebeListResponseRecievedListener;
@@ -31,7 +32,8 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
     private TextView fragment_debe_page_date_textview;
     private int mDate;
     private DebeListAdapter mAdapter;
-
+    private DebeDataSource mDebeDataSource;
+    private ArrayList<DebeListItem> mDebeListItemList;
 
     public static Fragment newInstance(ArrayList<DebeListItem> mDebeList, int date){
         DebePageFragment mDebePageFragment = new DebePageFragment();
@@ -51,18 +53,23 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
 
         setUI();
 
-        if(AppController.getIfTodaysDebeListStored(getActivity(), "today")){
+        mDebeDataSource = new DebeDataSource(getActivity());
+        mDebeDataSource.open();
 
+        if(AppController.getIfTodaysDebeListStored(getActivity(), "today")){
+            mDebeListItemList = mDebeDataSource.getAllDebeListItems();
+            updateAdapter(mDebeListItemList);
         }else{
             AppController.storeIfTodaysDebeListStored(getActivity(), "today");
             DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
             mDebeListParser.callDebeListTask();
+
         }
 
 
         mDate = this.getArguments().getInt("date");
 
-        ArrayList<DebeListItem> mDebeListItemList;
+
 
         mDebeListItemList = this.getArguments().getParcelableArrayList("DebeListItems");
 
@@ -98,12 +105,11 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
             updateAdapter(debeListItemList);
         }
 
+        for(DebeListItem debeItem : debeListItemList){
+            mDebeDataSource.createDebe(debeItem.getPlace(), debeItem.getTitle(), debeItem.getAuthor(), debeItem.getUrl(), debeItem.getDate());
+        }
 
-//        for(DebeListItem debeItem : debeListItems){
-//            dataSource.createYMLE(ymle.getGroup(), ymle.getPlace(), ymle.getTitle(), ymle.getAuthor(), ymle.getUrl(), ymle.getDate());
-//        }
-
-//        debeListItemList  = dataSource.getAllYMLES();
+        debeListItemList  = mDebeDataSource.getAllDebeListItems();
 
 
     }

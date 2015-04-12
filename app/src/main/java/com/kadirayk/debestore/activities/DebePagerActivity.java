@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.kadirayk.debestore.R;
+import com.kadirayk.debestore.database.DebeDataSource;
 import com.kadirayk.debestore.fragments.DebePageFragment;
 import com.kadirayk.debestore.models.DebeListItem;
 
@@ -25,6 +26,8 @@ public class DebePagerActivity extends ActionBarActivity {
     private static final int NUM_PAGES = 10;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
+    private ArrayList<DebeListItem> debeListItems;
+    private DebeDataSource mDebeDataSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class DebePagerActivity extends ActionBarActivity {
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(NUM_PAGES);
+        mDebeDataSource = new DebeDataSource(this);
+        mDebeDataSource.open();
     }
 
 
@@ -69,8 +74,9 @@ public class DebePagerActivity extends ActionBarActivity {
             ArrayList<DebeListItem> mDebeListItemArrayList = new ArrayList<DebeListItem>();
             DebeListItem mDebeListItem = new DebeListItem(1, position + "title", position + "author", "url", "date");
             //TODO get archived debelist from database
+            debeListItems = mDebeDataSource.getAllDebeListItems();
             mDebeListItemArrayList.add(mDebeListItem);
-            return new DebePageFragment().newInstance(mDebeListItemArrayList, position);
+            return new DebePageFragment().newInstance(debeListItems, position);
         }
 
         @Override
