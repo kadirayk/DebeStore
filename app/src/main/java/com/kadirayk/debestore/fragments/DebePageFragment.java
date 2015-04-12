@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.adapters.DebeListAdapter;
 import com.kadirayk.debestore.models.DebeListItem;
+import com.kadirayk.debestore.network.DebeListParser;
 import com.kadirayk.debestore.network.NetworkController.OnDebeListResponseRecievedListener;
 
 import java.util.ArrayList;
@@ -54,12 +56,8 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
         mDebeList.add("2. entry");
         mDebeList.add("3. entry");
 
-        List<String> mDebeList2 = new ArrayList<String>();
-//        mDebeList2.add("1. dünya savaşı");
-//        mDebeList2.add("2. dünya savaşı");
-//        mDebeList2.add("3. dünya savaşı");
-
-       // updateAdapter(mDebeList);
+        DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
+        mDebeListParser.callDebeListTask();
 
         mDate = this.getArguments().getInt("date");
 
@@ -92,7 +90,16 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
     }
 
     @Override
-    public void OnYMLEResponseRecieved(ArrayList<DebeListItem> debeListItems) {
+    public void OnYMLEResponseRecieved(ArrayList<DebeListItem> debeListItemList) {
+
+        Toast.makeText(getActivity(), debeListItemList.get(0).getTitle(), Toast.LENGTH_SHORT).show();
+
+//        for(DebeListItem debeItem : debeListItems){
+//            dataSource.createYMLE(ymle.getGroup(), ymle.getPlace(), ymle.getTitle(), ymle.getAuthor(), ymle.getUrl(), ymle.getDate());
+//        }
+
+//        debeListItemList  = dataSource.getAllYMLES();
+        updateAdapter(debeListItemList);
 
     }
 }

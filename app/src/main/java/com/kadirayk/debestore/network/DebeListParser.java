@@ -27,16 +27,16 @@ public class DebeListParser {
 
     private Context mContext;
     private Fragment currentFragment;
-    private YMLETask mYMLETask;
+    private DebeListTask mDebeListTask;
 
-    String YMLE_URL = "http://www.eksisozluk.com/debe";
+    String DEBE_LIST_URL = "http://www.eksisozluk.com/debe";
     ProgressDialog mProgressDialog;
 
 
     public DebeListParser(Context context, Fragment fragmet) {
         mContext = context;
         currentFragment = fragmet;
-        mYMLETask = new YMLETask();
+        mDebeListTask = new DebeListTask();
     }
 
 
@@ -50,16 +50,16 @@ public class DebeListParser {
     }
 
 
-    public void callYMLETask() {
+    public void callDebeListTask() {
         if (isConnected(mContext)) {
-            mYMLETask.execute();
+            mDebeListTask.execute();
         } else {
             Toast.makeText(mContext, "Sorun internet baðlantýsýnda, bizle alakasý yok.", Toast.LENGTH_SHORT).show();
         }
     }
 
     //YMLE AsyncTask
-    private class YMLETask extends AsyncTask<Void, Void, ArrayList<DebeListItem>> {
+    private class DebeListTask extends AsyncTask<Void, Void, ArrayList<DebeListItem>> {
 
         ArrayList<String> Debes = new ArrayList<String>();
         ArrayList<DebeListItem> mDebeListItemList = new ArrayList<>();
@@ -78,7 +78,7 @@ public class DebeListParser {
         protected ArrayList<DebeListItem> doInBackground(Void... params) {
             try {
 
-                Document document = Jsoup.connect(YMLE_URL).get();
+                Document document = Jsoup.connect(DEBE_LIST_URL).get();
 
                 Elements YMLETitle = document.select("span[class=\"caption\"]");
                 Elements YMLEAuthor = document.select("div[class=\"detail\"]");
