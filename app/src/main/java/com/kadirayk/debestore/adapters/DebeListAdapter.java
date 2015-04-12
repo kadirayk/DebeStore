@@ -66,7 +66,13 @@ public class DebeListAdapter extends BaseAdapter{
 
         int mplace = item.getPlace();
 
-        mHolder.debeListItemPlaceTV.setText(String.valueOf(mplace));
+        if(mDebeList.size()<2){
+
+        }else{
+            mHolder.debeListItemPlaceTV.setText(String.valueOf(mplace));
+        }
+
+
 
         return mView;
     }

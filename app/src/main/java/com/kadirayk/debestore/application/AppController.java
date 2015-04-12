@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Kadiray on 12.04.2015.
  */
@@ -44,6 +47,25 @@ public class AppController extends Application{
         SharedPreferences.Editor mEditor = mPrefs.edit();
         mEditor.putString("IfTodaysDebeListStored", today);
         mEditor.commit();
+    }
+
+    public static String getLastDate(Context context){
+        SharedPreferences mPreferences = context.getSharedPreferences("AppInfo", MODE_PRIVATE);
+        String lastDate = mPreferences.getString("lastDate", "");
+        return lastDate;
+    }
+
+    public static void storeLastDate(Context context, String lastDate){
+        SharedPreferences mPreferences = context.getSharedPreferences("AppInfo", MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = mPreferences.edit();
+        mEditor.putString("lastDate", lastDate);
+        mEditor.commit();
+    }
+
+    public static String getSystemDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String currentDate = sdf.format(new Date());
+        return currentDate;
     }
 
 

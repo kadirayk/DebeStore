@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.kadirayk.debestore.application.AppController;
 import com.kadirayk.debestore.fragments.DebePageFragment;
 import com.kadirayk.debestore.models.DebeListItem;
 
@@ -54,7 +55,7 @@ public class DebeListParser {
         if (isConnected(mContext)) {
             mDebeListTask.execute();
         } else {
-            Toast.makeText(mContext, "Sorun internet baðlantýsýnda, bizle alakasý yok.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Sorun internet bağlantısında, bizle alakası yok.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -71,7 +72,6 @@ public class DebeListParser {
             mProgressDialog.setTitle("Debe Listesi");
             mProgressDialog.setMessage("yükleniyor...");
             mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setCancelable(false);
             mProgressDialog.show();
         }
 
@@ -98,14 +98,16 @@ public class DebeListParser {
                         j = i;
                     }
 
-                    DebeListItem mDebeListItem = new DebeListItem(i+1, debeTitle.get(i).text(), debeAuthor.get(j).text(), "url", "date");
+                    String currentDate = AppController.getSystemDate();
+
+                    DebeListItem mDebeListItem = new DebeListItem(i+1, debeTitle.get(i).text(), debeAuthor.get(j).text(), "url", currentDate);
 
                     mDebeListItem.setPlace(i+1);
                     mDebeListItem.setTitle(debeTitle.get(i).text());
                     mDebeListItem.setAuthor(debeAuthor.get(j).text());
                     mDebeListItem.setUrl(element.attr("href"));
                     //TODO get today's date
-                    mDebeListItem.setDate("today");
+                    mDebeListItem.setDate(currentDate);
 
 
                     mDebeListItemList.add(mDebeListItem);

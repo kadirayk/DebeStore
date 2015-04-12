@@ -30,7 +30,7 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
     private View mView;
     private ListView fragment_debe_page_listview;
     private TextView fragment_debe_page_date_textview;
-    private int mDate;
+    private String mDate;
     private DebeListAdapter mAdapter;
     private DebeDataSource mDebeDataSource;
     private ArrayList<DebeListItem> mDebeListItemList;
@@ -53,29 +53,28 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
 
         setUI();
 
+        String currentDate = AppController.getSystemDate();
+
         mDebeDataSource = new DebeDataSource(getActivity());
         mDebeDataSource.open();
 
-        if(AppController.getIfTodaysDebeListStored(getActivity(), "today")){
+        if(AppController.getIfTodaysDebeListStored(getActivity(), currentDate)){
             mDebeListItemList = mDebeDataSource.getAllDebeListItems();
             updateAdapter(mDebeListItemList);
         }else{
-            AppController.storeIfTodaysDebeListStored(getActivity(), "today");
+            AppController.storeIfTodaysDebeListStored(getActivity(), currentDate);
             DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
             mDebeListParser.callDebeListTask();
 
         }
 
-
-        mDate = this.getArguments().getInt("date");
-
-
-
         mDebeListItemList = this.getArguments().getParcelableArrayList("DebeListItems");
+
+        mDate = mDebeListItemList.get(0).getDate();
 
         updateAdapter(mDebeListItemList);
 
-        fragment_debe_page_date_textview.setText("date : " + mDate);
+        fragment_debe_page_date_textview.setText(" " + mDate + " ");
 
         return mView;
     }
