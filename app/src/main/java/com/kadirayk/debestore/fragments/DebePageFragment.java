@@ -35,10 +35,10 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
     private DebeDataSource mDebeDataSource;
     private ArrayList<DebeListItem> mDebeListItemList;
 
-    public static Fragment newInstance(ArrayList<DebeListItem> mDebeList, int date){
+    public static Fragment newInstance(ArrayList<DebeListItem> mDebeList, int position){
         DebePageFragment mDebePageFragment = new DebePageFragment();
         Bundle args = new Bundle();
-        args.putInt("date", date);
+        args.putInt("position", position);
         args.putParcelableArrayList("DebeListItems", mDebeList);
         mDebePageFragment.setArguments(args);
 
@@ -55,11 +55,13 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
 
         String currentDate = AppController.getSystemDate();
 
+        int position = this.getArguments().getInt("position");
+
         mDebeDataSource = new DebeDataSource(getActivity());
         mDebeDataSource.open();
 
         if(AppController.getIfTodaysDebeListStored(getActivity(), currentDate)){
-            mDebeListItemList = mDebeDataSource.getAllDebeListItems();
+            mDebeListItemList = mDebeDataSource.getDebeListByGroup(position + 1);
             updateAdapter(mDebeListItemList);
         }else{
             AppController.storeIfTodaysDebeListStored(getActivity(), currentDate);
@@ -70,9 +72,8 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
 
         mDebeListItemList = this.getArguments().getParcelableArrayList("DebeListItems");
 
-        mDate = mDebeListItemList.get(0).getDate();
-
-        updateAdapter(mDebeListItemList);
+        mDate = mDebeListItemList.get(position).getDate();
+//        updateAdapter(mDebeListItemList);
 
         fragment_debe_page_date_textview.setText(" " + mDate + " ");
 
@@ -101,11 +102,12 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
 
         if(debeListItemList.size()!=0){
             Toast.makeText(getActivity(), debeListItemList.get(0).getTitle(), Toast.LENGTH_SHORT).show();
+            fragment_debe_page_date_textview.setText(debeListItemList.get(0).getDate());
             updateAdapter(debeListItemList);
         }
 
         for(DebeListItem debeItem : debeListItemList){
-            mDebeDataSource.createDebe(debeItem.getPlace(), debeItem.getTitle(), debeItem.getAuthor(), debeItem.getUrl(), debeItem.getDate());
+            mDebeDataSource.createDebe(debeItem.getGroup(), debeItem.getPlace(), debeItem.getTitle(), debeItem.getAuthor(), debeItem.getUrl(), debeItem.getDate());
         }
 
         debeListItemList  = mDebeDataSource.getAllDebeListItems();

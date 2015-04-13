@@ -100,7 +100,7 @@ public class DebeListParser {
 
                     String currentDate = AppController.getSystemDate();
 
-                    DebeListItem mDebeListItem = new DebeListItem(i+1, debeTitle.get(i).text(), debeAuthor.get(j).text(), "url", currentDate);
+                    DebeListItem mDebeListItem = new DebeListItem(AppController.getDebeListCount(mContext), i+1, debeTitle.get(i).text(), debeAuthor.get(j).text(), "url", currentDate);
 
                     mDebeListItem.setPlace(i+1);
                     mDebeListItem.setTitle(debeTitle.get(i).text());

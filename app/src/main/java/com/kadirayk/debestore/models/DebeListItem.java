@@ -9,6 +9,7 @@ import android.os.Parcelable;
 public class DebeListItem implements Parcelable{
 
     private long id;
+    private int group;
     private int place;
     private String title;
     private String author;
@@ -18,6 +19,7 @@ public class DebeListItem implements Parcelable{
 
     DebeListItem(Parcel in) {
         this.id = in.readLong();
+        this.group = in.readInt();
         this.place = in.readInt();
         this.title = in.readString();
         this.author = in.readString();
@@ -29,6 +31,7 @@ public class DebeListItem implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
+        dest.writeInt(group);
         dest.writeInt(place);
         dest.writeString(title);
         dest.writeString(author);
@@ -54,8 +57,9 @@ public class DebeListItem implements Parcelable{
 
     };
 
-    public DebeListItem(int place, String title, String author, String url, String date) {
+    public DebeListItem(int group, int place, String title, String author, String url, String date) {
 //        this.id = id;
+        this.group = group;
         this.place = place;
         this.title = title;
         this.author = author;
@@ -69,6 +73,14 @@ public class DebeListItem implements Parcelable{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
     }
 
     public int getPlace() {

@@ -83,7 +83,7 @@ public class DebePagerActivity extends ActionBarActivity {
 
         @Override
         public Fragment getItem(int position) {
-            DebeListItem mDebeListItem = new DebeListItem(1, "", "", "", currentDate);
+            DebeListItem mDebeListItem = new DebeListItem(position, 1, "", "", "", currentDate);
 
             debeListItems = mDebeDataSource.getAllDebeListItems();
             if(debeListItems.size()<1){

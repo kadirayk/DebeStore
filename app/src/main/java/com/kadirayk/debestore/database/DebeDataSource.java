@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.ContactsContract;
 
 import com.kadirayk.debestore.models.DebeListItem;
 
@@ -18,6 +19,7 @@ public class DebeDataSource {
     private SQLiteDatabase database;
     private DatabaseHelper dbHelper;
     private String[] allColumns = { DatabaseHelper.DEBE_COLUMN_ID,
+            DatabaseHelper.DEBE_COLUMN_GROUP,
             DatabaseHelper.DEBE_COLUMN_PLACE,
             DatabaseHelper.DEBE_COLUMN_TITLE,
             DatabaseHelper.DEBE_COLUMN_AUTHOR,
@@ -36,13 +38,14 @@ public class DebeDataSource {
         dbHelper.close();
     }
 
-    public DebeListItem createDebe(int place, String title, String author, String url, String date) {
+    public DebeListItem createDebe(int group, int place, String title, String author, String url, String date) {
         title = title.trim();
         author = author.trim();
         url = url.trim();
         date = date.trim();
 
         ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.DEBE_COLUMN_GROUP, group);
         values.put(DatabaseHelper.DEBE_COLUMN_PLACE, place);
         values.put(DatabaseHelper.DEBE_COLUMN_TITLE, title);
         values.put(DatabaseHelper.DEBE_COLUMN_AUTHOR, author);
@@ -115,14 +118,34 @@ public class DebeDataSource {
         return lastDate;
     }
 
+    public ArrayList<DebeListItem> getDebeListByGroup(int group){
+        ArrayList<DebeListItem> debeList = new ArrayList<DebeListItem>();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM "
+                + DatabaseHelper.TABLE_DEBE + " WHERE " + DatabaseHelper.DEBE_COLUMN_GROUP + " = '" + group
+                + "' ORDER BY " + DatabaseHelper.DEBE_COLUMN_PLACE + " ASC ", null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            DebeListItem debeListItem = cursorToDebeListItem(cursor);
+            debeList.add(debeListItem);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return debeList;
+
+    }
+
     private DebeListItem cursorToDebeListItem(Cursor cursor) {
-        DebeListItem debeListItem = new DebeListItem(0, "", "", "", "");
+        DebeListItem debeListItem = new DebeListItem(0, 0, "", "", "", "");
         debeListItem.setId(cursor.getLong(0));
-        debeListItem.setPlace(cursor.getInt(1));
-        debeListItem.setTitle(cursor.getString(2));
-        debeListItem.setAuthor(cursor.getString(3));
-        debeListItem.setUrl(cursor.getString(4));
-        debeListItem.setDate(cursor.getString(5));
+        debeListItem.setGroup(cursor.getInt(1));
+        debeListItem.setPlace(cursor.getInt(2));
+        debeListItem.setTitle(cursor.getString(3));
+        debeListItem.setAuthor(cursor.getString(4));
+        debeListItem.setUrl(cursor.getString(5));
+        debeListItem.setDate(cursor.getString(6));
         return debeListItem;
     }
 

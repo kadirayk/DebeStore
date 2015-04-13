@@ -65,11 +65,12 @@ public class DebeListAdapter extends BaseAdapter{
         mHolder.debelistItemAuthorTV.setText(item.getAuthor());
 
         int mplace = item.getPlace();
+        int mgroup = item.getGroup();
 
         if(mDebeList.size()<2){
 
         }else{
-            mHolder.debeListItemPlaceTV.setText(String.valueOf(mplace));
+            mHolder.debeListItemPlaceTV.setText(String.valueOf(mgroup) + "." + String.valueOf(mplace));
         }
 
 

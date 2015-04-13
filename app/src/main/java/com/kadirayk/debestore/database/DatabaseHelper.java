@@ -12,6 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     public static final String TABLE_DEBE = "debes";
     public static final String DEBE_COLUMN_ID = "_id";
+    public static final String DEBE_COLUMN_GROUP = "_group";
     public static final String DEBE_COLUMN_PLACE = "place";
     public static final String DEBE_COLUMN_TITLE = "title";
     public static final String DEBE_COLUMN_AUTHOR = "author";
@@ -24,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     //Database creation statement
     private static final String CREATE_TABLE_DEBE = "create table " + TABLE_DEBE
             + "(" + DEBE_COLUMN_ID + " integer primary key autoincrement, "
+            + DEBE_COLUMN_GROUP + " integer not null, "
             + DEBE_COLUMN_PLACE + " integer not null, "
             + DEBE_COLUMN_TITLE + " text not null, "
             + DEBE_COLUMN_AUTHOR + " text not null, "
