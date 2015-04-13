@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by Kadiray on 13.04.2015.
  */
-public class DebeDetailListItem implements Parcelable{
+public class DebeDetailItem implements Parcelable{
 
     private long id;
     private long parentId;
@@ -16,7 +16,7 @@ public class DebeDetailListItem implements Parcelable{
     private String url;
     private String date;
 
-    DebeDetailListItem(Parcel in){
+    DebeDetailItem(Parcel in){
         this.id = in.readLong();
         this.parentId = in.readLong();
         this.place = in.readInt();
@@ -42,20 +42,20 @@ public class DebeDetailListItem implements Parcelable{
         return 0;
     }
 
-    public static final Creator<DebeDetailListItem> CREATOR = new Creator<DebeDetailListItem>(){
+    public static final Creator<DebeDetailItem> CREATOR = new Creator<DebeDetailItem>(){
         @Override
-        public DebeDetailListItem createFromParcel(Parcel in) {
-            return new DebeDetailListItem(in);
+        public DebeDetailItem createFromParcel(Parcel in) {
+            return new DebeDetailItem(in);
         }
 
         @Override
-        public DebeDetailListItem[] newArray(int size) {
-            return new DebeDetailListItem[size];
+        public DebeDetailItem[] newArray(int size) {
+            return new DebeDetailItem[size];
         }
 
     };
 
-    public DebeDetailListItem(long parentId, int place, String title, String author, String url, String date) {
+    public DebeDetailItem(long parentId, int place, String title, String author, String url, String date) {
 //        this.id = id;
         this.parentId = parentId;
         this.place = place;
