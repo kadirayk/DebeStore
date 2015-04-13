@@ -1,5 +1,6 @@
 package com.kadirayk.debestore.network;
 
+import com.kadirayk.debestore.models.DebeDetailItem;
 import com.kadirayk.debestore.models.DebeListItem;
 
 import java.util.ArrayList;
@@ -14,7 +15,10 @@ public class NetworkController {
     }
 
     public interface OnDebeListResponseRecievedListener {
-        public void OnYMLEResponseRecieved(ArrayList<DebeListItem> debeListItems);
+        public void OnDebeListResponseRecieved(ArrayList<DebeListItem> debeListItems);
     }
 
+    public interface OnDebeDetailResponseRecievedListener {
+        public void OnDebeDetailResponseRecieved(DebeDetailItem debeDetailItem);
+    }
 }

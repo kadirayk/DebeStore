@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class DebeDetailPagerActivity extends ActionBarActivity{
 
-    private int debeListItemCount = 10;
+    private static final int debeListItemCount = 10;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private DebeDetailItem debeDetailItem;
@@ -31,6 +31,10 @@ public class DebeDetailPagerActivity extends ActionBarActivity{
         setContentView(R.layout.activity_debe_detail_pager);
 
         mPager = (ViewPager) findViewById(R.id.debe_detail_pager);
+        mPagerAdapter = new ScreenSlideDebeDetailPagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
+        //TODO get current position from intent
+        mPager.setCurrentItem(0);
 
     }
 
@@ -42,7 +46,7 @@ public class DebeDetailPagerActivity extends ActionBarActivity{
 
         @Override
         public Fragment getItem(int position) {
-            DebeDetailItem mDetailItem = new DebeDetailItem(0,0,"title","content","author","date");
+            DebeDetailItem mDetailItem = new DebeDetailItem(position,1,"title","content","author", "content", "date");
 
             return new DebeDetailPageFragment().newInstance(mDetailItem, position);
 

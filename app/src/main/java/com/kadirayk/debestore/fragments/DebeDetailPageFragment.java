@@ -6,14 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.models.DebeDetailItem;
+import com.kadirayk.debestore.network.DebeListParser;
+import com.kadirayk.debestore.network.NetworkController;
 
 /**
  * Created by Kadiray on 13.04.2015.
  */
-public class DebeDetailPageFragment extends Fragment{
+public class DebeDetailPageFragment extends Fragment implements NetworkController.OnDebeDetailResponseRecievedListener{
 
 
     public static Fragment newInstance(DebeDetailItem debeDetailItem, int position){
@@ -40,6 +43,10 @@ public class DebeDetailPageFragment extends Fragment{
 
         setUI();
 
+        DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
+        //TODO get url from intent
+        mDebeListParser.callDebeDetailTask("https://eksisozluk.com/entry/50514880");
+
         return mView;
     }
 
@@ -51,8 +58,20 @@ public class DebeDetailPageFragment extends Fragment{
     }
 
 
+    @Override
+    public void OnDebeDetailResponseRecieved(DebeDetailItem debeDetailItem) {
+            if(debeDetailItem != null){
+                Toast.makeText(getActivity(), debeDetailItem.getTitle(), Toast.LENGTH_SHORT).show();
+                fragment_debe_detail_page_title_textview.setText(debeDetailItem.getTitle());
+                fragment_debe_detail_page_content_textview.setText(debeDetailItem.getContent());
+                fragment_debe_detail_page_author_textview.setText(debeDetailItem.getAuthor());
+                fragment_debe_detail_page_date_textview.setText(debeDetailItem.getDate());
+            }
+
+            //TODO write to data source
 
 
+    }
 }
 
 

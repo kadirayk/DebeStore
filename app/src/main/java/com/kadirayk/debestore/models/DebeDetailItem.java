@@ -14,6 +14,7 @@ public class DebeDetailItem implements Parcelable{
     private String title;
     private String author;
     private String url;
+    private String content;
     private String date;
 
     DebeDetailItem(Parcel in){
@@ -23,6 +24,7 @@ public class DebeDetailItem implements Parcelable{
         this.title = in.readString();
         this.author = in.readString();
         this.url = in.readString();
+        this.content = in.readString();
         this.date = in.readString();
     }
 
@@ -34,6 +36,7 @@ public class DebeDetailItem implements Parcelable{
         dest.writeString(title);
         dest.writeString(author);
         dest.writeString(url);
+        dest.writeString(content);
         dest.writeString(date);
     }
 
@@ -55,14 +58,78 @@ public class DebeDetailItem implements Parcelable{
 
     };
 
-    public DebeDetailItem(long parentId, int place, String title, String author, String url, String date) {
+    public DebeDetailItem(long parentId, int place, String title, String author, String url, String content, String date) {
 //        this.id = id;
         this.parentId = parentId;
         this.place = place;
         this.title = title;
         this.author = author;
         this.url = url;
+        this.content = content;
         this.date = date;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
+    }
+
+    public int getPlace() {
+        return place;
+    }
+
+    public void setPlace(int place) {
+        this.place = place;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }

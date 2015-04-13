@@ -10,7 +10,9 @@ import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import com.kadirayk.debestore.application.AppController;
+import com.kadirayk.debestore.fragments.DebeDetailPageFragment;
 import com.kadirayk.debestore.fragments.DebePageFragment;
+import com.kadirayk.debestore.models.DebeDetailItem;
 import com.kadirayk.debestore.models.DebeListItem;
 
 import org.jsoup.Jsoup;
@@ -29,6 +31,7 @@ public class DebeListParser {
     private Context mContext;
     private Fragment currentFragment;
     private DebeListTask mDebeListTask;
+    private DebeDetailTask mDebeDetailTask;
 
     String DEBE_LIST_URL = "https://eksisozluk.com/debe";
     ProgressDialog mProgressDialog;
@@ -38,6 +41,7 @@ public class DebeListParser {
         mContext = context;
         currentFragment = fragmet;
         mDebeListTask = new DebeListTask();
+        mDebeDetailTask = new DebeDetailTask();
     }
 
 
@@ -56,6 +60,14 @@ public class DebeListParser {
             mDebeListTask.execute();
         } else {
             Toast.makeText(mContext, "Sorun internet bağlantısında, bizle alakası yok.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void callDebeDetailTask(String url){
+        if(isConnected(mContext)){
+            mDebeDetailTask.execute(url);
+        }else{
+            Toast.makeText(mContext, "Sorun internet bağlantısında, bizle muhtemelen alakası yok.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -106,7 +118,7 @@ public class DebeListParser {
                     mDebeListItem.setTitle(debeTitle.get(i).text());
                     mDebeListItem.setAuthor(debeAuthor.get(j).text());
                     mDebeListItem.setUrl(element.attr("href"));
-                    //TODO get today's date
+
                     mDebeListItem.setDate(currentDate);
 
 
@@ -126,11 +138,65 @@ public class DebeListParser {
             if (result == null) {
                 Toast.makeText(mContext, "başaramadık :(", Toast.LENGTH_SHORT).show();
             } else {
-                ((DebePageFragment) currentFragment).OnYMLEResponseRecieved(result);
+                ((DebePageFragment) currentFragment).OnDebeListResponseRecieved(result);
             }
             super.onPostExecute(result);
             mProgressDialog.dismiss();
         }
     }
+
+    private class DebeDetailTask extends AsyncTask<String, Void, DebeDetailItem>{
+
+        DebeDetailItem debeDetailItem = new DebeDetailItem(0,0,"","","","", "");
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(mContext);
+            mProgressDialog.setTitle("Entry");
+            mProgressDialog.setMessage("yükleniyor...");
+            mProgressDialog.setIndeterminate(false);
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected DebeDetailItem doInBackground(String... params) {
+            try {
+
+                String mUrl = (String) params[0];
+                Document document = Jsoup.connect(mUrl).get();
+
+                String debeDetailTitle = document.title();
+                String debeDetailAuthor = document.select("a[class=\"entry-author\"]").text();
+                String debeDetailContent = document.select("div[class=\"content\"]").text();
+                String debeDetailDate = document.select("a[class=\"entry-date permalink\"]").text();
+
+                debeDetailItem.setAuthor(debeDetailAuthor);
+                debeDetailItem.setTitle(debeDetailTitle);
+                debeDetailItem.setContent(debeDetailContent);
+                debeDetailItem.setDate(debeDetailDate);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return debeDetailItem;
+        }
+
+        @Override
+        protected void onPostExecute(DebeDetailItem result) {
+            if (result == null) {
+                Toast.makeText(mContext, "başaramadık :(", Toast.LENGTH_SHORT).show();
+            } else {
+                ((DebeDetailPageFragment) currentFragment).OnDebeDetailResponseRecieved(result);
+            }
+            super.onPostExecute(result);
+            mProgressDialog.dismiss();
+        }
+
+
+    }
+
+
 
 }

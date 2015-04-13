@@ -1,6 +1,7 @@
 package com.kadirayk.debestore.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kadirayk.debestore.R;
+import com.kadirayk.debestore.activities.DebeDetailPagerActivity;
 import com.kadirayk.debestore.adapters.DebeListAdapter;
 import com.kadirayk.debestore.application.AppController;
 import com.kadirayk.debestore.database.DebeDataSource;
@@ -95,10 +97,13 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+        Intent intent = new Intent(getActivity(), DebeDetailPagerActivity.class);
+        startActivity(intent);
+
     }
 
     @Override
-    public void OnYMLEResponseRecieved(ArrayList<DebeListItem> debeListItemList) {
+    public void OnDebeListResponseRecieved(ArrayList<DebeListItem> debeListItemList) {
 
         if(debeListItemList.size()!=0){
             Toast.makeText(getActivity(), debeListItemList.get(0).getTitle(), Toast.LENGTH_SHORT).show();
