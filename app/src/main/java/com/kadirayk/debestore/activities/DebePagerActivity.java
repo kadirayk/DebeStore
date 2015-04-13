@@ -46,7 +46,7 @@ public class DebePagerActivity extends ActionBarActivity {
             AppController.storeDebeListCount(this, debeListsCount);
         }
 
-        mPager = (ViewPager) findViewById(R.id.debepager);
+        mPager = (ViewPager) findViewById(R.id.debe_pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(debeListsCount);
