@@ -1,5 +1,6 @@
 package com.kadirayk.debestore.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.fragments.DebeDetailPageFragment;
 import com.kadirayk.debestore.models.DebeDetailItem;
+import com.kadirayk.debestore.models.DebeListItem;
 
 import java.util.ArrayList;
 
@@ -19,10 +21,11 @@ import java.util.ArrayList;
  */
 public class DebeDetailPagerActivity extends ActionBarActivity{
 
-    private static final int debeListItemCount = 10;
+    private int debeListItemCount;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private DebeDetailItem debeDetailItem;
+    private ArrayList<DebeListItem> mDebeListItems;
 
 
     @Override
@@ -30,11 +33,19 @@ public class DebeDetailPagerActivity extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debe_detail_pager);
 
+        Intent intent = getIntent();
+        intent.getStringExtra("url");
+        int currentItemPosition = intent.getIntExtra("place", 1);
+        debeListItemCount = intent.getIntExtra("debeItemCount", 1);
+
+        mDebeListItems = new ArrayList<>();
+        mDebeListItems = intent.getParcelableArrayListExtra("debeList");
+
         mPager = (ViewPager) findViewById(R.id.debe_detail_pager);
         mPagerAdapter = new ScreenSlideDebeDetailPagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         //TODO get current position from intent
-        mPager.setCurrentItem(0);
+        mPager.setCurrentItem(currentItemPosition);
 
     }
 
@@ -48,7 +59,7 @@ public class DebeDetailPagerActivity extends ActionBarActivity{
         public Fragment getItem(int position) {
             DebeDetailItem mDetailItem = new DebeDetailItem(position,1,"title","content","author", "content", "date");
 
-            return new DebeDetailPageFragment().newInstance(mDetailItem, position);
+            return new DebeDetailPageFragment().newInstance(mDetailItem, position, mDebeListItems);
 
         }
 

@@ -13,8 +13,7 @@
         android:background="#444"
         android:drawableRight="@drawable/ic_action_next_item"
         android:drawableLeft="@drawable/ic_action_previous_item"
-        android:textColor="#fff"
-        android:text="@string/title" />
+        android:textColor="#fff" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -31,8 +30,7 @@
                 android:id="@+id/fragment_debe_detail_page_content_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/lorem_ipsum"
-                />
+                 />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -48,7 +46,6 @@
                     android:id="@+id/fragment_debe_detail_page_date_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/date"
                     android:paddingTop = "4dp"
                     android:paddingRight="10dp"
                     />
@@ -59,7 +56,6 @@
                     android:id="@+id/fragment_debe_detail_page_author_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/title"
                     />
 
                 </LinearLayout>

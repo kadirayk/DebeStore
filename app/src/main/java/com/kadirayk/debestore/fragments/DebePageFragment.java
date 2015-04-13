@@ -23,6 +23,7 @@ import com.kadirayk.debestore.network.DebeListParser;
 import com.kadirayk.debestore.network.NetworkController.OnDebeListResponseRecievedListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Kadiray on 11.04.2015.
@@ -36,6 +37,7 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
     private DebeListAdapter mAdapter;
     private DebeDataSource mDebeDataSource;
     private ArrayList<DebeListItem> mDebeListItemList;
+    private ArrayList<DebeListItem> groupedDebeList;
 
     public static Fragment newInstance(ArrayList<DebeListItem> mDebeList, int position){
         DebePageFragment mDebePageFragment = new DebePageFragment();
@@ -73,8 +75,20 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
         }
 
         mDebeListItemList = this.getArguments().getParcelableArrayList("DebeListItems");
+        groupedDebeList = new ArrayList<>();
 
-        mDate = mDebeListItemList.get(position).getDate();
+        for(DebeListItem debeListItem : mDebeListItemList){
+            if( debeListItem.getGroup( ) == ( position + 1 ) ){
+                groupedDebeList.add(debeListItem);
+            }
+        }
+
+        if(groupedDebeList.isEmpty()){
+            mDate = "";
+        }else{
+            mDate = groupedDebeList.get(0).getDate();
+        }
+
 //        updateAdapter(mDebeListItemList);
 
         fragment_debe_page_date_textview.setText(" " + mDate + " ");
@@ -98,6 +112,10 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         Intent intent = new Intent(getActivity(), DebeDetailPagerActivity.class);
+        intent.putExtra("url", groupedDebeList.get(position-1).getUrl());
+        intent.putExtra("place", groupedDebeList.get(position-1).getPlace());
+        intent.putExtra("debeItemCount", groupedDebeList.size());
+        intent.putParcelableArrayListExtra("debeList", groupedDebeList);
         startActivity(intent);
 
     }

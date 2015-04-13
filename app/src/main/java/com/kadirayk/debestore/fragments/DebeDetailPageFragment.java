@@ -10,8 +10,11 @@ import android.widget.Toast;
 
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.models.DebeDetailItem;
+import com.kadirayk.debestore.models.DebeListItem;
 import com.kadirayk.debestore.network.DebeListParser;
 import com.kadirayk.debestore.network.NetworkController;
+
+import java.util.ArrayList;
 
 /**
  * Created by Kadiray on 13.04.2015.
@@ -19,11 +22,13 @@ import com.kadirayk.debestore.network.NetworkController;
 public class DebeDetailPageFragment extends Fragment implements NetworkController.OnDebeDetailResponseRecievedListener{
 
 
-    public static Fragment newInstance(DebeDetailItem debeDetailItem, int position){
+    public static Fragment newInstance(DebeDetailItem debeDetailItem, int position, ArrayList<DebeListItem> debeListItems){
         DebeDetailPageFragment mDebeDetailPageFragment = new DebeDetailPageFragment();
         Bundle args = new Bundle();
         args.putInt("position", position);
         args.putParcelable("DebeDetailItem", debeDetailItem);
+        args.putParcelableArrayList("DebeList", debeListItems);
+
         mDebeDetailPageFragment.setArguments(args);
 
         return mDebeDetailPageFragment;
@@ -34,6 +39,7 @@ public class DebeDetailPageFragment extends Fragment implements NetworkControlle
     private TextView fragment_debe_detail_page_content_textview;
     private TextView fragment_debe_detail_page_author_textview;
     private TextView fragment_debe_detail_page_date_textview;
+    private ArrayList<DebeListItem> debeListItems;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,9 +49,24 @@ public class DebeDetailPageFragment extends Fragment implements NetworkControlle
 
         setUI();
 
+        String mUrl; //= getActivity().getIntent().getStringExtra("url");
+        int position = getActivity().getIntent().getIntExtra("place", 1);
+
+        debeListItems = new ArrayList<>();
+
+        debeListItems = getActivity().getIntent().getParcelableArrayListExtra("debeList");
+//        debeListItems = this.getArguments().getParcelableArrayList("debeList");
+        position = this.getArguments().getInt("position") - 1;
+
+        if(position<0){
+            position = 0;
+        }
+
+        mUrl = debeListItems.get(position).getUrl();
+
         DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
         //TODO get url from intent
-        mDebeListParser.callDebeDetailTask("https://eksisozluk.com/entry/50514880");
+        mDebeListParser.callDebeDetailTask("https://www.eksisozluk.com" + mUrl);
 
         return mView;
     }
@@ -61,7 +82,6 @@ public class DebeDetailPageFragment extends Fragment implements NetworkControlle
     @Override
     public void OnDebeDetailResponseRecieved(DebeDetailItem debeDetailItem) {
             if(debeDetailItem != null){
-                Toast.makeText(getActivity(), debeDetailItem.getTitle(), Toast.LENGTH_SHORT).show();
                 fragment_debe_detail_page_title_textview.setText(debeDetailItem.getTitle());
                 fragment_debe_detail_page_content_textview.setText(debeDetailItem.getContent());
                 fragment_debe_detail_page_author_textview.setText(debeDetailItem.getAuthor());
