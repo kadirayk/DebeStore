@@ -35,7 +35,7 @@ public class DebePagerActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_screen_slide);
+        setContentView(R.layout.activity_debe_pager);
         currentDate = AppController.getSystemDate();
 
         debeListsCount = AppController.getDebeListCount(this);
@@ -46,7 +46,7 @@ public class DebePagerActivity extends ActionBarActivity {
             AppController.storeDebeListCount(this, debeListsCount);
         }
 
-        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager = (ViewPager) findViewById(R.id.debepager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setCurrentItem(debeListsCount);
