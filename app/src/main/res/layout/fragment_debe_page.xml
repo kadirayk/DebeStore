@@ -6,7 +6,7 @@
 
     <TextView style="?android:textAppearanceMedium"
         android:id="@+id/fragment_debe_page_date_textview"
-        android:padding="16dp"
+        android:padding="10dp"
         android:lineSpacingMultiplier="1.2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

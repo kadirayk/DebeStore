@@ -15,4 +15,6 @@ public class DebeDetailPagerActivity extends ActionBarActivity{
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
 
+
+
 }
