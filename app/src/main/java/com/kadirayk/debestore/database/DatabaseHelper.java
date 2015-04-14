@@ -10,6 +10,9 @@ import android.util.Log;
  */
 public class DatabaseHelper extends SQLiteOpenHelper{
 
+    public static final String DATABASE_NAME = "YMLE.db";
+    public static final int DATABASE_VERSION = 1;
+
     public static final String TABLE_DEBE = "debes";
     public static final String DEBE_COLUMN_ID = "_id";
     public static final String DEBE_COLUMN_GROUP = "_group";
@@ -19,8 +22,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String DEBE_COLUMN_URL = "url";
     public static final String DEBE_COLUMN_DATE = "date";
 
-    public static final String DATABASE_NAME = "YMLE.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final String TABLE_DEBE_DETAIL = "debe_details";
+    public static final String DEBE_DETAIL_COLUMN_ID = "_id";
+    public static final String DEBE_DETAIL_COLUMN_PARENT_ID = "parentid";
+    public static final String DEBE_DETAIL_COLUMN_PLACE = "place";
+    public static final String DEBE_DETAIL_COLUMN_TITLE = "title";
+    public static final String DEBE_DETAIL_COLUMN_AUTHOR = "author";
+    public static final String DEBE_DETAIL_COLUMN_URL = "url";
+    public static final String DEBE_DETAIL_COLUMN_CONTENT = "content";
+    public static final String DEBE_DETAIL_COLUMN_DATE = "date";
 
     //Database creation statement
     private static final String CREATE_TABLE_DEBE = "create table " + TABLE_DEBE
