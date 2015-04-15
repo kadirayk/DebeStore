@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String DEBE_DETAIL_COLUMN_CONTENT = "content";
     public static final String DEBE_DETAIL_COLUMN_DATE = "date";
 
-    //Database creation statement
+
     private static final String CREATE_TABLE_DEBE = "create table " + TABLE_DEBE
             + "(" + DEBE_COLUMN_ID + " integer primary key autoincrement, "
             + DEBE_COLUMN_GROUP + " integer not null, "
@@ -42,6 +42,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             + DEBE_COLUMN_URL + " text not null, "
             + DEBE_COLUMN_DATE + " text not null);";
 
+    private static final String CREATE_TABLE_DEBE_DETAIL = "create table " + TABLE_DEBE_DETAIL
+            + "(" + DEBE_DETAIL_COLUMN_ID + " integer primary key autoincrement, "
+            + DEBE_DETAIL_COLUMN_PARENT_ID + " integer not null, "
+            + DEBE_DETAIL_COLUMN_PLACE + " integer not null, "
+            + DEBE_DETAIL_COLUMN_TITLE + " text not null, "
+            + DEBE_DETAIL_COLUMN_AUTHOR + " text not null, "
+            + DEBE_DETAIL_COLUMN_URL + " text not null, "
+            + DEBE_DETAIL_COLUMN_CONTENT + " text not null, "
+            + DEBE_DETAIL_COLUMN_DATE + " text not null);";
+
+
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
                           int version) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,6 +61,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_DEBE);
+        db.execSQL(CREATE_TABLE_DEBE_DETAIL);
 
     }
 
@@ -59,6 +71,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 "Upgrading database from version " + oldVersion + " to "
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DEBE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DEBE_DETAIL);
         onCreate(db);
     }
 }
