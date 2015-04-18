@@ -63,6 +63,28 @@ public class DebeDetailDataSource {
         return debeDetailItem;
     }
 
+    public void deleteDebeDetail(DebeDetailItem debeDetailItem){
+        long id = debeDetailItem.getId();
+        database.delete(DatabaseHelper.TABLE_DEBE_DETAIL, DatabaseHelper.DEBE_DETAIL_COLUMN_ID
+            + " = " + id, null);
+    }
+
+    public ArrayList<DebeDetailItem> getAllDebeDetailItems(){
+        ArrayList<DebeDetailItem> debeDetailItems = new ArrayList<>();
+        Cursor cursor = database.query(DatabaseHelper.TABLE_DEBE_DETAIL,
+                allColumns, null, null, null, null, DatabaseHelper.DEBE_DETAIL_COLUMN_PLACE + " ASC");
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            DebeDetailItem debeDetailItem = cursorToDebeDetailItem(cursor);
+            debeDetailItems.add(debeDetailItem);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return debeDetailItems;
+    }
+
+
     private DebeDetailItem cursorToDebeDetailItem(Cursor cursor){
         DebeDetailItem debeDetailItem = new DebeDetailItem(0, 0, "", "", "", "", "");
         debeDetailItem.setId(cursor.getLong(0));
