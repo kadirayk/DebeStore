@@ -8,6 +8,8 @@ import android.provider.ContactsContract;
 
 import com.kadirayk.debestore.models.DebeDetailItem;
 
+import java.util.ArrayList;
+
 /**
  * Created by Kadiray on 16.04.2015.
  */
@@ -53,11 +55,26 @@ public class DebeDetailDataSource {
 
         long insertId = database.insert(DatabaseHelper.TABLE_DEBE_DETAIL, null, values);
         Cursor cursor = database.query(DatabaseHelper.TABLE_DEBE_DETAIL,
-                allColumns, DatabaseHelper.DEBE_COLUMN_ID + " = " + insertId, null,
+                allColumns, DatabaseHelper.DEBE_DETAIL_COLUMN_ID + " = " + insertId, null,
                 null, null, null);
         cursor.moveToFirst();
         DebeDetailItem debeDetailItem = null; //TODO = cursorTODebeDetailItem(cursor);
         cursor.close();
         return debeDetailItem;
     }
+
+    private DebeDetailItem cursorToDebeDetailItem(Cursor cursor){
+        DebeDetailItem debeDetailItem = new DebeDetailItem(0, 0, "", "", "", "", "");
+        debeDetailItem.setId(cursor.getLong(0));
+        debeDetailItem.setParentId(cursor.getLong(1));
+        debeDetailItem.setPlace(cursor.getInt(2));
+        debeDetailItem.setTitle(cursor.getString(3));
+        debeDetailItem.setAuthor(cursor.getString(4));
+        debeDetailItem.setUrl(cursor.getString(5));
+        debeDetailItem.setContent(cursor.getString(6));
+        debeDetailItem.setDate(cursor.getString(7));
+        return null;
+    }
+
+
 }
