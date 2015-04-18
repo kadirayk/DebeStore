@@ -84,6 +84,22 @@ public class DebeDetailDataSource {
         return debeDetailItems;
     }
 
+    public ArrayList<DebeDetailItem> getAllDebeDetailItemsByDate(String date){
+        ArrayList<DebeDetailItem> debeDetailItems = new ArrayList<>();
+
+        Cursor cursor = database.rawQuery("SELECT * FROM "
+                + DatabaseHelper.TABLE_DEBE_DETAIL + " WHERE " + DatabaseHelper.DEBE_DETAIL_COLUMN_DATE + " = '" + date
+                + "' ORDER BY " + DatabaseHelper.DEBE_DETAIL_COLUMN_PLACE + " ASC ", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            DebeDetailItem debeDetailItem = cursorToDebeDetailItem(cursor);
+            debeDetailItems.add(debeDetailItem);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return debeDetailItems;
+    }
 
     private DebeDetailItem cursorToDebeDetailItem(Cursor cursor){
         DebeDetailItem debeDetailItem = new DebeDetailItem(0, 0, "", "", "", "", "");
