@@ -1,7 +1,7 @@
 package com.kadirayk.debestore.network;
 
-import com.kadirayk.debestore.models.DebeDetailItem;
-import com.kadirayk.debestore.models.DebeListItem;
+import com.kadirayk.debestore.model.DebeDetailItem;
+import com.kadirayk.debestore.model.DebeListItem;
 
 import java.util.ArrayList;
 

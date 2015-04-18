@@ -5,9 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
 
-import com.kadirayk.debestore.models.DebeListItem;
+import com.kadirayk.debestore.model.DebeListItem;
 
 import java.util.ArrayList;
 

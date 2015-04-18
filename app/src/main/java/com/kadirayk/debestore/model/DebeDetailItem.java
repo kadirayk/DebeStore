@@ -1,4 +1,4 @@
-package com.kadirayk.debestore.models;
+package com.kadirayk.debestore.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

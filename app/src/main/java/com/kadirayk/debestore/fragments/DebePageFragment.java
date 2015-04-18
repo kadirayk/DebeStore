@@ -18,12 +18,11 @@ import com.kadirayk.debestore.activities.DebeDetailPagerActivity;
 import com.kadirayk.debestore.adapters.DebeListAdapter;
 import com.kadirayk.debestore.application.AppController;
 import com.kadirayk.debestore.database.DebeDataSource;
-import com.kadirayk.debestore.models.DebeListItem;
+import com.kadirayk.debestore.model.DebeListItem;
 import com.kadirayk.debestore.network.DebeListParser;
 import com.kadirayk.debestore.network.NetworkController.OnDebeListResponseRecievedListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Created by Kadiray on 11.04.2015.

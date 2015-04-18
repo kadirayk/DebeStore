@@ -15,7 +15,7 @@ import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.application.AppController;
 import com.kadirayk.debestore.database.DebeDataSource;
 import com.kadirayk.debestore.fragments.DebePageFragment;
-import com.kadirayk.debestore.models.DebeListItem;
+import com.kadirayk.debestore.model.DebeListItem;
 
 import java.util.ArrayList;
 

@@ -12,8 +12,8 @@ import android.widget.Toast;
 import com.kadirayk.debestore.application.AppController;
 import com.kadirayk.debestore.fragments.DebeDetailPageFragment;
 import com.kadirayk.debestore.fragments.DebePageFragment;
-import com.kadirayk.debestore.models.DebeDetailItem;
-import com.kadirayk.debestore.models.DebeListItem;
+import com.kadirayk.debestore.model.DebeDetailItem;
+import com.kadirayk.debestore.model.DebeListItem;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

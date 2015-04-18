@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.kadirayk.debestore.R;
-import com.kadirayk.debestore.models.DebeListItem;
+import com.kadirayk.debestore.model.DebeListItem;
 
 import java.util.ArrayList;
 

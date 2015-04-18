@@ -6,11 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kadirayk.debestore.R;
-import com.kadirayk.debestore.models.DebeDetailItem;
-import com.kadirayk.debestore.models.DebeListItem;
+import com.kadirayk.debestore.model.DebeDetailItem;
+import com.kadirayk.debestore.model.DebeListItem;
 import com.kadirayk.debestore.network.DebeListParser;
 import com.kadirayk.debestore.network.NetworkController;
 
