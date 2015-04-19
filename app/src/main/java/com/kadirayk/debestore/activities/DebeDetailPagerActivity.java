@@ -63,7 +63,6 @@ public class DebeDetailPagerActivity extends ActionBarActivity{
         return true;
     }
 
-
     private class ScreenSlideDebeDetailPagerAdapter extends FragmentStatePagerAdapter {
         public ScreenSlideDebeDetailPagerAdapter(FragmentManager fm) {
             super(fm);

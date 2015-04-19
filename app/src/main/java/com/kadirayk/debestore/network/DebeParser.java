@@ -7,8 +7,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.application.AppController;
 import com.kadirayk.debestore.fragments.DebeDetailPageFragment;
 import com.kadirayk.debestore.fragments.DebePageFragment;
@@ -152,11 +154,13 @@ public class DebeParser {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
+
 //            mProgressDialog = new ProgressDialog(mContext);
 //            mProgressDialog.setTitle("Entry");
 //            mProgressDialog.setMessage("yükleniyor...");
 //            mProgressDialog.setIndeterminate(false);
 //            mProgressDialog.show();
+
         }
 
         @Override

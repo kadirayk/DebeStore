@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
 
-    <item android:id="@+id/test_item"
+    <item android:id="@+id/menu_debe_detail_refresh_item"
         android:title="Refresh"
         android:icon="@drawable/ic_action_refresh"
         app:showAsAction="ifRoom" />
