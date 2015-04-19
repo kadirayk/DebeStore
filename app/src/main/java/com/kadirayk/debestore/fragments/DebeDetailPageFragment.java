@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.model.DebeDetailItem;
 import com.kadirayk.debestore.model.DebeListItem;
-import com.kadirayk.debestore.network.DebeListParser;
+import com.kadirayk.debestore.network.DebeParser;
 import com.kadirayk.debestore.network.NetworkController;
 
 import java.util.ArrayList;
@@ -63,9 +63,9 @@ public class DebeDetailPageFragment extends Fragment implements NetworkControlle
 
         mUrl = debeListItems.get(position).getUrl();
 
-        DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
+        DebeParser mDebeParser = new DebeParser(getActivity(), this);
         //TODO get url from intent
-        mDebeListParser.callDebeDetailTask("https://www.eksisozluk.com" + mUrl);
+        mDebeParser.callDebeDetailTask("https://www.eksisozluk.com" + mUrl);
 
         return mView;
     }

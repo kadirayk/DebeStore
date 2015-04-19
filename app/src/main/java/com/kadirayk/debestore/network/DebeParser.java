@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by Kadiray on 12.04.2015.
  */
-public class DebeListParser {
+public class DebeParser {
 
     private Context mContext;
     private Fragment currentFragment;
@@ -37,7 +37,7 @@ public class DebeListParser {
     ProgressDialog mProgressDialog;
 
 
-    public DebeListParser(Context context, Fragment fragmet) {
+    public DebeParser(Context context, Fragment fragmet) {
         mContext = context;
         currentFragment = fragmet;
         mDebeListTask = new DebeListTask();
@@ -152,11 +152,11 @@ public class DebeListParser {
         @Override
         protected void onPreExecute(){
             super.onPreExecute();
-            mProgressDialog = new ProgressDialog(mContext);
-            mProgressDialog.setTitle("Entry");
-            mProgressDialog.setMessage("yükleniyor...");
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.show();
+//            mProgressDialog = new ProgressDialog(mContext);
+//            mProgressDialog.setTitle("Entry");
+//            mProgressDialog.setMessage("yükleniyor...");
+//            mProgressDialog.setIndeterminate(false);
+//            mProgressDialog.show();
         }
 
         @Override
@@ -191,7 +191,7 @@ public class DebeListParser {
                 ((DebeDetailPageFragment) currentFragment).OnDebeDetailResponseRecieved(result);
             }
             super.onPostExecute(result);
-            mProgressDialog.dismiss();
+//            mProgressDialog.dismiss();
         }
 
 

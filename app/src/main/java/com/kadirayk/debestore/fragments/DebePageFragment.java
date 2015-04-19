@@ -19,7 +19,7 @@ import com.kadirayk.debestore.adapters.DebeListAdapter;
 import com.kadirayk.debestore.application.AppController;
 import com.kadirayk.debestore.database.DebeDataSource;
 import com.kadirayk.debestore.model.DebeListItem;
-import com.kadirayk.debestore.network.DebeListParser;
+import com.kadirayk.debestore.network.DebeParser;
 import com.kadirayk.debestore.network.NetworkController.OnDebeListResponseRecievedListener;
 
 import java.util.ArrayList;
@@ -68,8 +68,8 @@ public class DebePageFragment extends Fragment implements OnItemClickListener, O
             updateAdapter(mDebeListItemList);
         }else{
             AppController.storeIfTodaysDebeListStored(getActivity(), currentDate);
-            DebeListParser mDebeListParser = new DebeListParser(getActivity(), this);
-            mDebeListParser.callDebeListTask();
+            DebeParser mDebeParser = new DebeParser(getActivity(), this);
+            mDebeParser.callDebeListTask();
 
         }
 

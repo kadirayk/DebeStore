@@ -7,7 +7,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.kadirayk.debestore.R;
 import com.kadirayk.debestore.fragments.DebeDetailPageFragment;
@@ -21,6 +24,8 @@ import java.util.ArrayList;
  */
 public class DebeDetailPagerActivity extends ActionBarActivity{
 
+    private ActionBar mActionBar;
+    private MenuItem mMenuItem;
     private int debeListItemCount;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
@@ -32,6 +37,8 @@ public class DebeDetailPagerActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_debe_detail_pager);
+
+        mActionBar = getSupportActionBar();
 
         Intent intent = getIntent();
         intent.getStringExtra("url");
@@ -47,6 +54,13 @@ public class DebeDetailPagerActivity extends ActionBarActivity{
         //TODO get current position from intent
         mPager.setCurrentItem(currentItemPosition);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
 
