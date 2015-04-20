@@ -171,6 +171,7 @@ public class DebeParser {
                 Document document = Jsoup.connect(mUrl).get();
 
                 String debeDetailTitle = document.title();
+                debeDetailTitle = debeDetailTitle.substring(0, debeDetailTitle.indexOf("-"));
                 String debeDetailAuthor = document.select("a[class=\"entry-author\"]").text();
                 String debeDetailContent = document.select("div[class=\"content\"]").text();
                 String debeDetailDate = document.select("a[class=\"entry-date permalink\"]").text();
