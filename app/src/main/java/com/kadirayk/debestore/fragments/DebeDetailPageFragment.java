@@ -64,7 +64,7 @@ public class DebeDetailPageFragment extends Fragment implements NetworkControlle
         mUrl = debeListItems.get(position).getUrl();
 
         DebeParser mDebeParser = new DebeParser(getActivity(), this);
-        //TODO get url from intent
+
         mDebeParser.callDebeDetailTask("https://www.eksisozluk.com" + mUrl);
 
         return mView;
